@@ -1,0 +1,77 @@
+# **Exploração e análise de dados de crédico com SQL**
+
+## Os dados:
+
+Os dados representam informações de clientes de um banco e contam com as seguintes colunas: 
+
+* idade = idade do cliente
+* sexo = sexo do cliente (F ou M)
+* dependentes = número de dependentes do cliente
+* escolaridade = nível de escolaridade do clientes
+* salario_anual = faixa salarial do cliente
+* tipo_cartao = tipo de cartao do cliente
+* qtd_produtos = quantidade de produtos comprados nos últimos 12 meses
+* iteracoes_12m = quantidade de iterações/transacoes nos ultimos 12 meses
+* meses_inativo_12m = quantidade de meses que o cliente ficou inativo
+* limite_credito = limite de credito do cliente
+* valor_transacoes_12m = valor das transações dos ultimos 12 meses
+* qtd_transacoes_12m  = quantidade de transacoes dos ultimos 12 meses
+
+A tabela foi criada no **AWS Athena** junto com o **S3 Bucket** com uma versão dos dados disponibilizados em: https://github.com/andre-marcos-perez/ebac-course-utils/tree/main/dataset
+
+
+# **Exploração de Dados:**
+
+A primeira etapa da análise é entender nossa fonte de dados e em seguida explorá-la.
+
+**Qual a quantidade de informações temos na nossa base de dados?**
+
+Query: SELECT count(*) FROM credito
+> Reposta: 2564 linhas
+
+**ps** A base de dados do link acima contem mais linha que a seleção utilizada. Para essa análise,utilizamos uma versão mais compacta para a análise.
+
+**Como são os dados**
+
+Query: SELECT * FROM credito LIMIT 10;
+
+![Des primeiras linhas da tabela](https://github.com/vectorcabral/Projeto_SQL/blob/main/QueryLimite10.jpg?raw=true)
+
+**Quais os tipos de cada dado**
+
+**Query:** DESCRIBE credito
+
+![Descrição](https://github.com/vectorcabral/Projeto_SQL/blob/main/Query_describe.png?raw=true)
+
+Agora que ja entendemos quais são os tipos de dados, vamos olhar com mais atenção para as variáveis que não são numéricas
+
+**Quais são os tipos de escolaridade disponíveis no dataset?**
+
+**Query:** SELECT DISTINCT escolaridade FROM credito
+
+![Escolaridade](https://github.com/vectorcabral/Projeto_SQL/blob/main/Query_SelectDistinct.png?raw=true)
+
+> Os dados contam com diferentes níveis de escolaridade e é possível ver que temos valores nulos (na) no dataset, trataremos disso mais tarde
+
+**Quais são os tipos de estado_civil disponível no dataset?**
+
+**Query:** SELECT DISTINCT estado_civil  FROM credito
+
+![Estado_civil](https://github.com/vectorcabral/Projeto_SQL/blob/main/Query_EstadoCivil.png?raw=true)
+
+
+> Aqui vemos que não há necessidade de tratar valores nulos.
+
+**Quais são os tipos de salario_anual disponíveis no dataset?**
+
+**Query:** SELECT DISTINCT salario_anual  FROM credito
+
+![Salario_anual](https://github.com/vectorcabral/Projeto_SQL/blob/main/Salario_anual.png?raw=true)
+
+> Os salários nesse dataset não estão expostas com o valor exato que o cliente ganha. O que está informado é a faixa salarial de cada um. Também contem dados nulos. 
+
+
+**Quais são os tipos de cartão disponíveis no dataset?**
+
+![Tipo_Cartao](https://github.com/vectorcabral/Projeto_SQL/blob/main/tipo_cartao.png?raw=true)
+> Aqui vemos que não há necessidade de tratar valores nulos.
